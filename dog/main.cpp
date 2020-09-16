@@ -6,6 +6,8 @@ void display(void){
     glClear( GL_COLOR_BUFFER_BIT);
     glPointSize(7.0);
 
+    glScalef(.5,.5,0.0f);
+    glPushMatrix();
     glBegin(GL_POLYGON);
     glColor3f(1.7, .7, 0.5);
     glVertex2f(0, 3);
@@ -113,15 +115,7 @@ void display(void){
     glVertex2f(9, 5);
     glEnd();
 
-
-
-
-
-
-
-
-
-
+    glPopMatrix();
 
     glFlush();
 }
