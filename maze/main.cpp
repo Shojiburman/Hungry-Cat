@@ -13,10 +13,17 @@ GLfloat spe = 0.1f;
 
 GLfloat posi = 45.5f;
 GLfloat posiu = 1.5f;
+
+GLfloat posD2 = 0.5f;
+GLfloat posupD2 = 105.0f;
+
+
 GLfloat pos = 0.0f;
 GLfloat sped = 0.4f;
 
 int flag = 0;
+
+int flag2 = 0;
 
 
 
@@ -61,12 +68,50 @@ void updateDog(int value) {
 	glutTimerFunc(100, updateDog, 0);
 }
 
+
+void updateDog2(int value) {
+    if((posupD2 > 56) && (flag2 == 0)){
+        sped = .4f;
+        posupD2 -= sped;
+        flag2 = 0;
+
+    }
+    else if((posupD2 <= 56) && (posupD2 >= 55)){
+        sped = .02f;
+        posupD2 -= sped;
+        flag2 = 1;
+    }
+    else if((posupD2 < 55) && (flag2 == 1)) {
+        posupD2 = 56.1;
+        sped = .4f;
+        posupD2 += sped;
+        flag2 = 2;
+    }
+    else if((posupD2 > 56) && (posupD2 < 106) && (flag2 == 2)) {
+        sped = .4f;
+        posupD2 += sped;
+        if(posupD2 > 104.5){
+            flag2 = 3;
+        } else {
+            flag2 = 2;
+        }
+
+    }
+    else if ((posupD2 > 104.5) && (flag2 == 3)){
+        posupD2 = 104.5;
+        sped = .4f;
+        posupD2 -= sped;
+        flag2 = 0;
+    }
+
+	glutPostRedisplay();
+
+	glutTimerFunc(100, updateDog2, 0);
+}
+
 void dog(){
 
     glPushMatrix();
-
-    glTranslatef(posi, posiu, 0.0f);
-
     glScalef(.5,.5,0.0f);
     glBegin(GL_POLYGON);
     glColor3f(1.7, .7, 0.5);
@@ -2890,7 +2935,17 @@ void display(void){
 
     maze();
     cat();
+
+    glPushMatrix();
+    glTranslatef(posi, posiu, 0.0f);
     dog();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(posD2, posupD2, 0.0f);
+    dog();
+    glPopMatrix();
+
     dog_home();
     dog_bone();
 
@@ -2964,6 +3019,7 @@ int main(int argc, char **argv)
 
     glutKeyboardFunc(handleKeypress);
     glutTimerFunc(100, updateDog, 0);
+    glutTimerFunc(100, updateDog2, 0);
     glutMainLoop();
 
  return 0;
