@@ -15,15 +15,23 @@ GLfloat posi = 45.5f;
 GLfloat posiu = 1.5f;
 
 GLfloat posD2 = 0.5f;
-GLfloat posupD2 = 105.0f;
+GLfloat posupD2 = 104.0f;
+
+GLfloat posD3 = 22.5f;
+GLfloat posupD3 = 88.0f;
+
+GLfloat posD4 = 53.0f;
+GLfloat posupD4 = 88.0f;
 
 
 GLfloat pos = 0.0f;
 GLfloat sped = 0.4f;
 
 int flag = 0;
-
 int flag2 = 0;
+int flag3 = 0;
+int flag4 = 0;
+
 
 
 
@@ -77,7 +85,7 @@ void updateDog2(int value) {
 
     }
     else if((posupD2 <= 56) && (posupD2 >= 55)){
-        sped = .02f;
+        sped = .4f;
         posupD2 -= sped;
         flag2 = 1;
     }
@@ -90,15 +98,15 @@ void updateDog2(int value) {
     else if((posupD2 > 56) && (posupD2 < 106) && (flag2 == 2)) {
         sped = .4f;
         posupD2 += sped;
-        if(posupD2 > 104.5){
+        if(posupD2 > 105){
             flag2 = 3;
         } else {
             flag2 = 2;
         }
 
     }
-    else if ((posupD2 > 104.5) && (flag2 == 3)){
-        posupD2 = 104.5;
+    else if ((posupD2 >= 105) && (flag2 == 3)){
+        posupD2 = 104;
         sped = .4f;
         posupD2 -= sped;
         flag2 = 0;
@@ -108,6 +116,87 @@ void updateDog2(int value) {
 
 	glutTimerFunc(100, updateDog2, 0);
 }
+
+void updateDog3(int value) {
+    if((posupD3 > 57) && (flag3 == 0)){
+        sped = .4f;
+        posupD3 -= sped;
+        flag3 = 0;
+
+    }
+    else if((posupD3 <= 57) && (posupD3 >= 56)){
+        sped = .4f;
+        posupD3 -= sped;
+        flag3 = 1;
+    }
+    else if((posupD3 < 56) && (flag3 == 1)) {
+        posupD3 = 57.1;
+        sped = .4f;
+        posupD3 += sped;
+        flag3 = 2;
+    }
+    else if((posupD3 > 57) && (posupD3 < 90) && (flag3 == 2)) {
+        sped = .4f;
+        posupD3 += sped;
+        if(posupD3 > 89){
+            flag3 = 3;
+        } else {
+            flag3 = 2;
+        }
+
+    }
+    else if ((posupD3 >= 89) && (flag3 == 3)){
+        posupD3 = 88;
+        sped = .4f;
+        posupD3 -= sped;
+        flag3 = 0;
+    }
+
+	glutPostRedisplay();
+
+	glutTimerFunc(100, updateDog3, 0);
+}
+
+void updateDog4(int value) {
+    if((posupD4 > 65) && (flag4 == 0)){
+        sped = .4f;
+        posupD4 -= sped;
+        flag4 = 0;
+
+    }
+    else if((posupD4 <= 65) && (posupD4 >= 64)){
+        sped = .4f;
+        posupD4 -= sped;
+        flag4 = 1;
+    }
+    else if((posupD4 < 64) && (flag4 == 1)) {
+        posupD4 = 65.1;
+        sped = .4f;
+        posupD4 += sped;
+        flag4 = 2;
+    }
+    else if((posupD4 > 64) && (posupD4 < 90) && (flag4 == 2)) {
+        sped = .4f;
+        posupD4 += sped;
+        if(posupD4 > 89){
+            flag4 = 3;
+        } else {
+            flag4 = 2;
+        }
+
+    }
+    else if ((posupD4 >= 89) && (flag4 == 3)){
+        posupD4 = 88;
+        sped = .4f;
+        posupD4 -= sped;
+        flag4 = 0;
+    }
+
+	glutPostRedisplay();
+
+	glutTimerFunc(100, updateDog4, 0);
+}
+
 
 void dog(){
 
@@ -222,7 +311,6 @@ void dog(){
 
     glPopMatrix();
 }
-
 
 void dog_bone(){
     glPushMatrix();
@@ -2946,11 +3034,21 @@ void display(void){
     dog();
     glPopMatrix();
 
+    glPushMatrix();
+    glTranslatef(posD3, posupD3, 0.0f);
+    dog();
+    glPopMatrix();
+
+    glPushMatrix();
+    glTranslatef(posD4, posupD4, 0.0f);
+    dog();
+    glPopMatrix();
+
     dog_home();
     dog_bone();
 
     glPushMatrix();
-    glTranslatef(28.5, 14.5, 0.0f);
+    glTranslatef(29, 88, 0.0f);
     dog_home();
     dog_bone();
     glPopMatrix();
@@ -3020,6 +3118,8 @@ int main(int argc, char **argv)
     glutKeyboardFunc(handleKeypress);
     glutTimerFunc(100, updateDog, 0);
     glutTimerFunc(100, updateDog2, 0);
+    glutTimerFunc(100, updateDog3, 0);
+    glutTimerFunc(100, updateDog4, 0);
     glutMainLoop();
 
  return 0;
