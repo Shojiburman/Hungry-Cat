@@ -2,6 +2,10 @@
 #include <stdio.h>
 #include <GL/glut.h>
 #include <bits/stdc++.h>
+#include<MMsystem.h>
+#define GLFW_KEY_ENTER 257
+
+
 using namespace std;
 
 GLfloat score = 0.0f;
@@ -32,8 +36,108 @@ int flag2 = 0;
 int flag3 = 0;
 int flag4 = 0;
 
+int state = 0;
 
 
+
+
+void output(int x, int y, char *string)
+{
+	int len, i;
+
+	glRasterPos2f(x, y);
+	len = (int)strlen(string);
+	for (i = 0; i < len; i++)
+	{
+		glutBitmapCharacter(GLUT_BITMAP_TIMES_ROMAN_24, string[i]);
+	}
+}
+
+void winscreen()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(.1, 1.7, 0.3);
+	output(18, 70, "YOU HAVE SUCCEEDED TO FIND KICHEN DOOR");
+	glColor3f(1.8, 0.3, 0.5);
+	output(27, 60, "PRESS _ HOME _ TO GO MAIN MENU");
+	output(38, 50, "PRESS _ END _ TO QUIT");
+	glFlush();
+}
+
+void gameover()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1, 0.0, 0.0);
+	output(47, 77, "-----------");
+	output(48, 75, "GAME OVER");
+	output(47, 73, "-----------");
+	glColor3f(1.8, 0.1, 1.5);
+	output(46, 65, "space: RESTART");
+	output(44, 60, "home: MAIN MENU");
+	output(50, 55, "end: QUIT");
+	glFlush();
+}
+
+void startscreen()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.8, 0.1, 1.5);
+	output(30, 80, "WELCOME TO THE HUNGRY CAT");
+	output(42, 70, "0.STORY MODE");
+	output(43, 60, "1.NEW GAME");
+	output(48, 50, "2.QUIT");
+	glFlush();
+}
+
+void story()
+{
+	glClear(GL_COLOR_BUFFER_BIT);
+	glColor3f(1.8, 0.3, 0.5);
+	output(30, 80, "A Hungry Cat Lost into a dog pond.");
+	output(30, 75, "There is a kitchen door to escape,");
+	output(30, 70, "Find the kitchen door: Hurry up");
+	output(35, 60, "Press _SPACE_ To Continue");
+	glFlush();
+}
+
+void idle()
+{
+	if (state == 1)
+	{
+
+		if (((position >= 51 && position <= 56) && (positionup >= 53 && positionup <= 58)))
+		{
+			state = 4;
+		}
+	}
+	if(state == 1){
+        if ((position < 6.8 &&  position >= posD2) && (positionup <= (posupD2+2) && positionup >= (posupD2-2)))
+		{
+			state = 5;
+		}
+	}
+	if(state == 1){
+        if ((position < 28.5 &&  position >= posD3) && (positionup <= (posupD3+2) && positionup >= (posupD3-2)))
+		{
+			state = 5;
+		}
+	}
+	if(state == 1){
+        if ((position > 49.9 &&  position <= posD4+3) && (positionup <= (posupD4+2) && positionup >= (posupD4-2)))
+		{
+			state = 5;
+		}
+	}
+
+	if(state == 1){
+        if ((positionup < 5.3 &&  positionup >= posiu) && (position <= (posi+4) && position >= (posi-2)))
+		{
+			state = 5;
+		}
+	}
+
+	glutPostRedisplay();
+}
 
 
 void updateDog(int value) {
@@ -3021,90 +3125,227 @@ void display(void){
     glClear( GL_COLOR_BUFFER_BIT);
     glPointSize(7.0);
 
-    maze();
-    cat();
+    if (state == 0) {
+        startscreen();
+    }
+	else if (state == 1) {
+        glClear(GL_COLOR_BUFFER_BIT);
+        glColor3f(1.8, 0.1, 1.5);
+        output(63, 80, "OPTION");
+        output(63, 75, "Press:");
+         output(63, 70, "space: RESTART");
+        output(63, 65, "home: MAIN MENU");
+        output(63, 60, "end: QUIT");
+        maze();
+        cat();
 
-    glPushMatrix();
-    glTranslatef(posi, posiu, 0.0f);
-    dog();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(posi, posiu, 0.0f);
+        dog();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(posD2, posupD2, 0.0f);
-    dog();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(posD2, posupD2, 0.0f);
+        dog();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(posD3, posupD3, 0.0f);
-    dog();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(posD3, posupD3, 0.0f);
+        dog();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(posD4, posupD4, 0.0f);
-    dog();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(posD4, posupD4, 0.0f);
+        dog();
+        glPopMatrix();
 
-    dog_home();
-    dog_bone();
+        dog_home();
+        dog_bone();
 
-    glPushMatrix();
-    glTranslatef(29, 88, 0.0f);
-    dog_home();
-    dog_bone();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(29, 88, 0.0f);
+        dog_home();
+        dog_bone();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(-22.5, 54, 0.0f);
-    dog_home();
-    dog_bone();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-22.5, 54, 0.0f);
+        dog_home();
+        dog_bone();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(-.5,87.5, 0.0f);
-    dog_home();
-    dog_bone();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(-.5,87.5, 0.0f);
+        dog_home();
+        dog_bone();
+        glPopMatrix();
 
-    glPushMatrix();
-    glTranslatef(5.2, 55.6, 0.0f);
-    end_pont();
-    glPopMatrix();
+        glPushMatrix();
+        glTranslatef(5.2, 55.6, 0.0f);
+        end_pont();
+        glPopMatrix();
+    }
 
-    glFlush();
+    else if (state == 3)
+	{
+		exit(1);
+	}
+
+	else if (state == 4)
+	{
+		winscreen();
+	}
+	else if (state == 5)
+	{
+		gameover();
+	}
+	else if (state == 6)
+	{
+		story();
+	}
+
+glFlush();
 }
+
+GLfloat moveflag = 0;
+GLfloat y = 0;
+GLfloat x = 0;
 
 void handleKeypress(unsigned char key, int x, int y) {
 	switch (key) {
 case 'a':
-    position -= 1;
-    score += 1;
-    cout<<score;
+    if(position < 2){
+        moveflag = 1;
+    }
+    else if(positionup > 3.6 && positionup < 9.2){
+        x = position - 0.8;
+        if(position > 3.6 && position < 17.2){
+            moveflag = 1;
+        }
+        else{
+            position -= .8;
+            cout<<position<<',';
+            cout<<positionup<<endl;
+        }
+    }
+    else {
+        position -= .8;
+        cout<<position<<',';
+        cout<<positionup<<endl;
+    }
     break;
 case 'd':
-    position += 1;
-    score += 1;
-    cout<<score;
+    if(position > 54){
+        moveflag = 1;
+    }
+    else if(positionup > 3.6 && positionup < 9.2){
+        x = position + .8;
+        if(x > 3.6 && x < 17.2){
+            cout<<position<<endl;
+        }
+        else {
+            position += .8;
+            cout<<position<<',';
+            cout<<positionup<<endl;
+        }
+    }
+    else {
+        position += .8;
+        cout<<position<<',';
+        cout<<positionup<<endl;
+    }
     break;
-    case 'w':
-    positionup += 1;
-    score += 1;
-    cout<<score;
+
+case 'w':
+
+    if(positionup > 106){
+        moveflag = 1;
+    }
+    else if(position > 3.6 && position < 16.4){
+            y = positionup + .8;
+            if(y > 3.6 && y < 10){
+                cout<<positionup<<endl;
+            }
+            else {
+                positionup += .8;
+                moveflag = 0;
+                cout<<position<<',';
+                cout<<positionup<<endl;
+            }
+    }
+    else {
+        positionup += .8;
+        moveflag = 0;
+        cout<<position<<',';
+        cout<<positionup<<endl;
+    }
     break;
 case 's':
-    positionup -= 1;
-    score += 1;
-    cout<<score;
+    if(positionup < 2){
+        moveflag = 1;
+    }
+    else if(position > 3.6 && position < 16.4){
+            y = positionup - .8;
+            if(y > 3.6 && y < 9.2){
+                 moveflag = 1;
+            } else {
+                positionup -= .8;
+                cout<<position<<',';
+                cout<<positionup<<endl;
+            }
+    } else {
+        positionup -= .8;
+        cout<<position<<',';
+        cout<<positionup<<endl;
+    }
     break;
+case '1':
+    state = 1;
+    position = 2;
+    positionup = 2;
+    break;
+
+case '2':
+    exit(1);
+    break;
+
+case '0':
+    state = 6;
+    break;
+
+case ' ':
+    state = 1;
+    position = 2;
+    positionup = 2;
+    break;
+
 glutPostRedisplay();
 	}
 }
+
+void SpecialKey(int key, int x, int y){
+    switch (key) {
+        case GLUT_KEY_HOME:
+            state = 0;
+            position = 2;
+            positionup = 2;
+            break;
+
+        case GLUT_KEY_END:
+            exit(1);
+            break;
+
+        glutPostRedisplay();
+	}
+}
+
 
 int main(int argc, char **argv)
 {
     glutInit(&argc, argv);
     glutInitDisplayMode ( GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 
-    glutInitWindowPosition(0,0);
+    glutInitWindowPosition(600,0);
     glutInitWindowSize(800,800);
     glutCreateWindow ("square");
 
@@ -3114,8 +3355,11 @@ int main(int argc, char **argv)
     glOrtho(0.0, 111, 0.0, 111, -1.0, 1.0);
     glutDisplayFunc(display);
 
+    PlaySound(TEXT("D:\\Shojib\\course\\CG\\bgg.wav"), NULL, SND_FILENAME | SND_LOOP | SND_ASYNC);
 
     glutKeyboardFunc(handleKeypress);
+    glutSpecialFunc(SpecialKey);
+    glutIdleFunc(idle);
     glutTimerFunc(100, updateDog, 0);
     glutTimerFunc(100, updateDog2, 0);
     glutTimerFunc(100, updateDog3, 0);

@@ -1,8 +1,10 @@
 # depslib dependency file v1.0
-1599459066 source:d:\shojib\course\cg\project\maze\main.cpp
+1600431573 source:d:\shojib\course\cg\project\maze\main.cpp
 	<windows.h>
 	<stdio.h>
 	<GL/glut.h>
+	<bits/stdc++.h>
+	<MMsystem.h>
 
 1301111164 c:\program files (x86)\codeblocks\mingw\include\gl\gl.h
 
