@@ -41,8 +41,7 @@ int state = 0;
 
 
 
-void output(int x, int y, char *string)
-{
+void output(int x, int y, char *string){
 	int len, i;
 
 	glRasterPos2f(x, y);
@@ -53,8 +52,7 @@ void output(int x, int y, char *string)
 	}
 }
 
-void winscreen()
-{
+void winscreen(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(.1, 1.7, 0.3);
 	output(18, 70, "YOU HAVE SUCCEEDED TO FIND KICHEN DOOR");
@@ -64,8 +62,7 @@ void winscreen()
 	glFlush();
 }
 
-void gameover()
-{
+void gameover(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1, 0.0, 0.0);
 	output(47, 77, "-----------");
@@ -78,8 +75,7 @@ void gameover()
 	glFlush();
 }
 
-void startscreen()
-{
+void startscreen(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.8, 0.1, 1.5);
 	output(30, 80, "WELCOME TO THE HUNGRY CAT");
@@ -89,8 +85,7 @@ void startscreen()
 	glFlush();
 }
 
-void story()
-{
+void story(){
 	glClear(GL_COLOR_BUFFER_BIT);
 	glColor3f(1.8, 0.3, 0.5);
 	output(30, 80, "A Hungry Cat Lost into a dog pond.");
@@ -100,8 +95,7 @@ void story()
 	glFlush();
 }
 
-void idle()
-{
+void idle(){
 	if (state == 1)
 	{
 
@@ -3349,7 +3343,7 @@ int main(int argc, char **argv)
     glutInitWindowSize(800,800);
     glutCreateWindow ("square");
 
-    glClearColor(1, 1, 1, 0.0);
+    glClearColor(.11, .2, .1, 0.0);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     glOrtho(0.0, 111, 0.0, 111, -1.0, 1.0);

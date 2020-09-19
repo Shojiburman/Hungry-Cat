@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1600431573 source:d:\shojib\course\cg\project\maze\main.cpp
+1600434944 source:d:\shojib\course\cg\project\maze\main.cpp
 	<windows.h>
 	<stdio.h>
 	<GL/glut.h>
