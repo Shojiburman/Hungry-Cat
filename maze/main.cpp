@@ -5,7 +5,6 @@
 #include<MMsystem.h>
 #define GLFW_KEY_ENTER 257
 
-
 using namespace std;
 
 GLfloat score = 0.0f;
@@ -3341,7 +3340,7 @@ int main(int argc, char **argv)
 
     glutInitWindowPosition(600,0);
     glutInitWindowSize(800,800);
-    glutCreateWindow ("square");
+    glutCreateWindow ("cat");
 
     glClearColor(.11, .2, .1, 0.0);
     glMatrixMode(GL_PROJECTION);
